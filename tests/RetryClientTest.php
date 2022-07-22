@@ -10,7 +10,7 @@ use Nyholm\Psr7\Request;
 use PHPUnit\Framework\TestCase;
 use Webclient\Extension\Retry\RetryClientDecorator;
 use Webclient\Extension\Retry\Timer\DefaultTimer;
-use Webclient\Fake\Client as FakeClient;
+use Webclient\Fake\FakeHttpClient;
 
 use function array_reverse;
 use function array_shift;
@@ -25,7 +25,7 @@ class RetryClientTest extends TestCase
         $badRequests = 4;
         $retries = 5;
         $handler = new Handler($badRequests);
-        $baseHttpClient = new FakeClient($handler);
+        $baseHttpClient = new FakeHttpClient($handler);
         $timer = new DefaultTimer($step);
         $decoratedClient = new RetryClientDecorator($baseHttpClient, $timer, $retries);
 
@@ -55,7 +55,7 @@ class RetryClientTest extends TestCase
         $badRequests = 5;
         $retries = 5;
         $handler = new Handler($badRequests);
-        $baseHttpClient = new FakeClient($handler);
+        $baseHttpClient = new FakeHttpClient($handler);
         $timer = new DefaultTimer($step);
         $decoratedClient = new RetryClientDecorator($baseHttpClient, $timer, $retries);
 
